@@ -32,24 +32,6 @@ train_loader = t.utils.data.DataLoader(mnist_trainset, batch_size=128, shuffle=F
 mnist_testset = datasets.MNIST(root='./data', train=False, download=True, transform=transform)
 test_loader = t.utils.data.DataLoader(mnist_testset, batch_size=128, shuffle=False)
 
-"""
-class Net(nn.Module):
-    def __init__(self):
-        super(Net,self).__init__()
-        self.relu = nn.ReLU()
-        self.linear1 = nn.Linear(28*28, 100) 
-        self.linear2 = nn.Linear(100, 50) 
-        self.final = nn.Linear(50, 10)
-
-    def forward(self, img): #convert + flatten
-        x = img.view(-1, 28*28)
-        x = self.relu(self.linear1(x))
-        x = self.relu(self.linear2(x))
-        x = self.final(x)
-        return x
-net = Net()
-"""
-
 # Criar Modelo
 net = nn.Sequential(nn.Linear(28*28, 50),
                       nn.ReLU(),
@@ -68,7 +50,6 @@ epoch = 10
 
 loss_values = []
 for epoch in range(epoch):
-    #net.train()
     epoch_loss = 0
     for data in train_loader:
         x, y = data
@@ -90,16 +71,17 @@ plt.show()
 
       
 with t.no_grad():
+    correct = 0
+    total = 0
     for data in test_loader:      
         x, y = data
         output = net(x.view(-1, 784).to(device))
-        correct = 0
-        total = 0
         for idx, i in enumerate(output):
             if t.argmax(i) == y[idx]:
                 correct +=1
             total +=1
 print(f'accuracy: {round(correct/total, 3)}')
+
 
 """
 plt.imshow(x[3].view(28, 28))
