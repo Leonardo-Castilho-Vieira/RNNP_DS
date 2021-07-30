@@ -1,11 +1,12 @@
 # RNNP_DS
 Redes Neurais na Prática - Turma Data Science
 
-
 Evidências:
 
 1 - mnist pytorch vanilla
+
 2 - mnist pytorch convolutiva
+
 3 - criação e otimização do modelo Titanic
 4 - criação e otimização do modelo Heart Failure
 5 - criação e otimização do modelo Wine Quality
