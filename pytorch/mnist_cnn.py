@@ -3,6 +3,15 @@
 Created on Sat Jul 24 10:47:18 2021
 
 @author: jasmi
+
+1) Preparar dados
+2) Criar o modelo (input, output size, forward pass)
+3) Criar a função de erro (loss) e o otimizador 
+4) Criar o loop de treinamento
+   - forward pass: calcular a predição e o erro
+   - backward pass: calcular os gradientes
+   - update weights: ajuste dos pesos do modelo
+
 """
 
 import torch
