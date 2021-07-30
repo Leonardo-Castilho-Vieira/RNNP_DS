@@ -8,13 +8,14 @@ Evidências:
 2 - mnist pytorch convolutiva
 
 3 - criação e otimização do modelo Titanic
+
 4 - criação e otimização do modelo Heart Failure
+
 5 - criação e otimização do modelo Wine Quality
+
 6 - criação e otimização do modelo Voice Gender
 
 
-
-Criar e validar e modelos para os seguintes datasets:
 
 https://www.kaggle.com/hesh97/titanicdataset-traincsv
 
