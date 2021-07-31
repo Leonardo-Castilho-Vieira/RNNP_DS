@@ -3,8 +3,6 @@
 """
 Created on Fri Jun 11 14:18:20 2021
 @author: Jasmmine Moreira
-
-
 1) Preparar dados
 2) Criar o modelo (input, output size, forward pass)
 3) Criar a função de erro (loss) e o otimizador 
@@ -15,14 +13,13 @@ Created on Fri Jun 11 14:18:20 2021
 """
 import pandas as pd
 import torch as t
-import torchvision.datasets as datasets 
-import torchvision.transforms as transforms
 import torch.nn as nn
 import matplotlib.pyplot as plt
 
 
-df = pd.read_csv (r'C:\Users\jasmi\Downloads\titanic\train.csv')
+df = pd.read_csv (r'C:\Users\jasmi\OneDrive\Área de Trabalho\RNNP_DS\PyTorch\titanic.csv')
 df = df[["Pclass","Sex","Age","SibSp","Parch","Fare","Embarked", "PassengerId","Survived"]]
+df = df.dropna()
 
 df['Embarked'] = pd.Categorical(df['Embarked']).codes
 df['Sex'] = pd.Categorical(df['Sex']).codes
@@ -30,28 +27,24 @@ df['Sex'] = pd.Categorical(df['Sex']).codes
 train_set = df.sample(frac=0.7)
 test_set = df[df.PassengerId.isin(train_set.PassengerId)==False]
 
-num_classes = 2
-train_labels = (train_set.Survived == torch.arange(num_classes).reshape(1, num_classes)).float()
-
-num_classes = 2
-test_labels = (test_set.Survived == torch.arange(num_classes).reshape(1, num_classes)).float()
+train_labels = t.as_tensor(train_set.Survived.values)
+test_labels = t.as_tensor(test_set.Survived.values)
 
 train_set =  train_set.iloc[: , :-2]
 test_set =  test_set.iloc[: , :-2]
 
-train_set = torch.from_numpy(train_set) 
-test_set = torch.from_numpy(test_set) 
-
-
+train_set = t.tensor(train_set.values, dtype=t.float32)
+test_set = t.tensor(test_set.values, dtype=t.float32)
 
 use_cuda = t.cuda.is_available()
 device = t.device("cuda:0" if use_cuda else "cpu") 
 
 # Criar Modelo
-net = nn.Sequential(nn.Linear(, 50),
-                      nn.ReLU(),
-                      nn.Linear(50, 10)
-                      )
+net = nn.Sequential(nn.Linear(7, 50),
+                    nn.ReLU(),
+                    nn.Linear(50, 2)
+                   )
+
 if use_cuda:
     net.cuda()
 
@@ -62,20 +55,18 @@ optimizer = t.optim.AdamW(net.parameters(), lr=0.01) #e-1
 
 # loop de treinamento
 epoch = 10
-
 loss_values = []
 for epoch in range(epoch):
     epoch_loss = 0
-    for data in train_loader:
-        x, y = data
+    for x,y in zip(train_set, train_labels):    
         optimizer.zero_grad()
-        output = net(x.view(-1, 28*28).to(device)).to(device)
-        loss = criterion(output, y.to(device))
+        output = net(x.view(1,7).to(device)).to(device)
+        loss = criterion(output, y.view(1).to(device))
         loss.backward()
         optimizer.step()
         epoch_loss = epoch_loss+loss.item()       
-    loss_values.append(epoch_loss/len(train_loader))
-    print(epoch_loss/len(train_loader))
+    loss_values.append(epoch_loss/len(train_set))
+    print(epoch_loss/len(train_set))
     
 plt.plot(range(1,epoch+2), loss_values, 'bo', label='Training Loss')
 plt.title("Training Loss")
@@ -88,11 +79,9 @@ plt.show()
 with t.no_grad():
     correct = 0
     total = 0
-    for data in test_loader:      
-        x, y = data
-        output = net(x.view(-1, 784).to(device))
-        for idx, i in enumerate(output):
-            if t.argmax(i) == y[idx]:
-                correct +=1
-            total +=1
+    for x,y in zip(train_set, train_labels):      
+        output = net(x.view(1,7).to(device)).to(device)
+        if t.argmax(output) == y:
+            correct +=1
+        total +=1
 print(f'accuracy: {round(correct/total, 3)}')
