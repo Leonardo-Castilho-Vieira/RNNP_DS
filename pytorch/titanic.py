@@ -33,7 +33,7 @@ test_labels = t.as_tensor(test_set.Survived.values)
 train_set =  train_set.iloc[: , :-2]
 test_set =  test_set.iloc[: , :-2]
 
-n_feat = len(train_set[1])
+n_feat = len(train_set[:1])
 
 train_set = t.tensor(train_set.values, dtype=t.float32)
 test_set = t.tensor(test_set.values, dtype=t.float32)
