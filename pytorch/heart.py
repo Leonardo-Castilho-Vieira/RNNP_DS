@@ -35,6 +35,10 @@ test_labels = t.as_tensor(test_set.DEATH_EVENT.values).to(device)
 train_set =  train_set.iloc[: , :-2]
 test_set =  test_set.iloc[: , :-2]
 
+# Normalização das features
+train_set=(train_set-train_set.min())/(train_set.max()-train_set.min())
+test_set=(test_set-test_set.min())/(test_set.max()-test_set.min())
+
 # Transformar as features em tensores
 train_set = t.tensor(train_set.values, dtype=t.float32).to(device)
 test_set = t.tensor(test_set.values, dtype=t.float32).to(device)
