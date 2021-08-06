@@ -76,7 +76,7 @@ for epoch in range(epoch):
 with t.no_grad():
     correct = 0
     total = 0
-    for x,y in zip(train_set, train_labels):      
+    for x,y in zip(test_set, test_labels):      
         output = net(x.view(1,n_feat))
         if t.argmax(output) == y:
             correct +=1
