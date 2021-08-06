@@ -1,4 +1,3 @@
-  
 # -*- coding: utf-8 -*-
 """
 Created on Fri Jun 11 14:18:20 2021
@@ -16,7 +15,6 @@ import torch as t
 import torch.nn as nn
 import matplotlib.pyplot as plt
 
-
 df = pd.read_csv (r'C:\Users\jasmi\OneDrive\Área de Trabalho\RNNP_DS\PyTorch\titanic.csv')
 df = df[["Pclass","Sex","Age","SibSp","Parch","Fare","Embarked", "PassengerId","Survived"]]
 df = df.dropna()
@@ -33,7 +31,8 @@ test_labels = t.as_tensor(test_set.Survived.values)
 train_set =  train_set.iloc[: , :-2]
 test_set =  test_set.iloc[: , :-2]
 
-n_feat = len(train_set[:1])
+n_feat = len(train_set.columns)
+
 
 train_set = t.tensor(train_set.values, dtype=t.float32)
 test_set = t.tensor(test_set.values, dtype=t.float32)
@@ -46,7 +45,6 @@ net = nn.Sequential(nn.Linear(n_feat, 20),
                     nn.ReLU(),
                     nn.Linear(20, 2)
                    )
-
 if use_cuda:
     net.cuda()
 
@@ -75,12 +73,11 @@ plt.xlabel("Epochs")
 plt.ylabel("Loss")
 plt.legend()
 plt.show()
-
       
 with t.no_grad():
     correct = 0
     total = 0
-    for x,y in zip(train_set, train_labels):      
+    for x,y in zip(test_set, test_labels):      
         output = net(x.view(1,n_feat).to(device)).to(device)
         if t.argmax(output) == y:
             correct +=1
