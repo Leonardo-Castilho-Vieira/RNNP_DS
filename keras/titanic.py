@@ -17,8 +17,11 @@ conda install keras
 """
 import pandas as pd
 import tensorflow as tf
+from keras import regularizers
+from keras import optimizers
 from keras import models, layers
 from tensorflow.keras.utils import to_categorical
+
 
 # Carregamento dos dados
 df = pd.read_csv (r'C:\Users\jasmi\OneDrive\Área de Trabalho\RNNP_DS\PyTorch\titanic.csv')
