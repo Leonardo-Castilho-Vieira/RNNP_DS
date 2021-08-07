@@ -9,6 +9,11 @@ Created on Fri Jun 11 14:18:20 2021
    - forward pass: calcular a predição e o erro
    - backward pass: calcular os gradientes
    - update weights: ajuste dos pesos do modelo
+   
+   
+requisitos:
+conda install tensorflow
+conda install keras
 """
 import pandas as pd
 import tensorflow as tf
@@ -46,8 +51,8 @@ test_set = tf.convert_to_tensor(test_set, dtype=tf.int64)
 
 # Criação do modelo
 network = models.Sequential()
-network.add(layers.Dense(50,activation='relu', input_shape=(6,)))
-network.add(layers.Dense(20,activation='relu'))
+network.add(layers.Dense(50, kernel_regularizer=regularizers.l2(0.001), activation='relu', input_shape=(6,)))
+network.add(layers.Dense(20, kernel_regularizer=regularizers.l2(0.001), activation='relu'))
 network.add(layers.Dense(2, activation='softmax'))
 
 network.summary()
