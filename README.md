@@ -17,6 +17,8 @@ Evidências:
 
 7 - comparar resultados obtidos via RN com outros modelos de classificadores para os datasets dos itens 3,4,5 e 6
 
+8 - executar treinamento com o dataset "cats and dogs" utilizando Keras/Tensorflow 
+
 
 https://www.kaggle.com/hesh97/titanicdataset-traincsv
 
