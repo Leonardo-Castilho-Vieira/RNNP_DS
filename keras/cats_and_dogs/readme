@@ -1,0 +1,18 @@
+Criar a seguinte estrutura de diretórios:
+
+catdog_train
+   |
+   |--- cats
+   |--- dogs
+
+
+catdog_validation
+   |
+   |--- cats
+   |--- dogs
+   
+   
+catdog_test
+   |
+   |--- cats
+   |--- dogs
