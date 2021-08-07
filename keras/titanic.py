@@ -58,7 +58,7 @@ network.add(layers.Dense(2, activation='softmax'))
 network.summary()
 
 # Compilação do modelo para definir função de erro e otimização
-network.compile(optimizer='adam',loss='categorical_crossentropy', metrics=['accuracy'])
+network.compile(optimizer=optimizers.Adam(learning_rate=0.001),loss='categorical_crossentropy', metrics=['accuracy'])
 
 # Executar treinamento
 history = network.fit(train_set, 
