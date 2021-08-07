@@ -15,6 +15,7 @@ Evidências:
 
 6 - criação e otimização do modelo Voice Gender
 
+7 - comparar resultados obtidos via RN com outros modelos de classificadores para os datasets dos itens 3,4,5 e 6
 
 
 https://www.kaggle.com/hesh97/titanicdataset-traincsv
