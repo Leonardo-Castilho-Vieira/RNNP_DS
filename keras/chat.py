@@ -102,8 +102,16 @@ plt.ylabel("Accuracy")
 plt.legend()
 plt.show()
 
+###################### Teste do modelo
 
-
+while True:
+    sentence = input("você: ")
+    sentence = tokenizer.texts_to_sequences(spck([sentence]))
+    sentence = pad_sequences(sentence, maxlen=max_len)
+    prediction = model(sentence)
+    category = np.argmax(prediction, axis=1)[0]
+    answer = adf.query('answer_id=='+str(category)).to_numpy()
+    print("Ana: "+answer[0][1])
 
 
 
