@@ -105,3 +105,53 @@ while True:
     category = np.argmax(prediction, axis=1)[0]
     answer = adf.query('answer_id=='+str(category)).to_numpy()
     print("Ana: "+answer[0][1])
+
+
+#############################################################################################
+#
+# CAPTURA E RECONHECIMENTO DE VOZ E RESPOSTA
+#
+#############################################################################################
+    
+import speech_recognition as sr
+import win32com.client as wincl
+speak = wincl.Dispatch("SAPI.SpVoice")
+speak.Rate=3
+
+#Para MacOS e Linux
+# import os
+# os.system('say "'+answer+'"')
+
+def recognize_speech_from_mic(recognizer, microphone):
+    transcription = ""
+    with microphone as source:
+        audio = recognizer.listen(source)
+        try:
+            transcription = recognizer.recognize_google(audio, language="pt-BR")
+        except sr.RequestError:
+            print("API unavailable")
+        except sr.UnknownValueError:
+            pass
+    return transcription  
+
+recognizer = sr.Recognizer()
+microphone = sr.Microphone()
+
+with microphone as source:
+    recognizer.adjust_for_ambient_noise(source)
+
+speak.Speak("Olá, sou a Ana, vamos começar?")
+while(True):
+    sentence = recognize_speech_from_mic(recognizer, microphone)
+    if(sentence==""): continue
+    print("Você: "+sentence)
+    sentence = tokenizer.texts_to_sequences(spck([sentence]))
+    sentence = pad_sequences(sentence, maxlen=max_len)
+    prediction = model(sentence)
+    category = np.argmax(prediction, axis=1)[0]
+    answer = adf.query('answer_id=='+str(category)).to_numpy()
+    print("Ana: "+answer[0][1])
+    speak.Speak(answer[0][1])
+
+    
+    
