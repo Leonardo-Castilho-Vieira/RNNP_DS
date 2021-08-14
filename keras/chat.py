@@ -1,17 +1,8 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Aug 13 19:49:00 2021
-
-@author: Jasmine Moreira
-
-python -m pip install pyspellchecker
-pip install SpeechRecognition
-pip install PyAudio
-"""
 import pandas as pd
 import numpy as np
 import string
 from spellchecker import SpellChecker
+from tensorflow.keras import regularizers
 from tensorflow.keras import optimizers
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Flatten, Dense, Embedding, Dropout
@@ -59,7 +50,7 @@ y_train = to_categorical(qdf.answer_id)
 
 #Criar o modelo
 model = Sequential()
-model.add(Embedding(5000, 32, input_length= max_len))
+model.add(Embedding(5000, 32, input_length= max_len, embeddings_regularizer=regularizers.L2(0.0001)))
 model.add(Flatten())
 model.add(Dropout(0.5))
 model.add(Dense(100))
