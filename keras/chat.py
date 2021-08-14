@@ -1,3 +1,13 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Aug 13 19:49:00 2021
+
+@author: Jasmine Moreira
+
+python -m pip install pyspellchecker
+pip install SpeechRecognition
+pip install PyAudio
+"""
 import pandas as pd
 import numpy as np
 import string
@@ -107,12 +117,16 @@ while True:
     print("Ana: "+answer[0][1])
 
 
+
+
+
+
 #############################################################################################
 #
 # CAPTURA E RECONHECIMENTO DE VOZ E RESPOSTA
 #
 #############################################################################################
-    
+
 import speech_recognition as sr
 import win32com.client as wincl
 speak = wincl.Dispatch("SAPI.SpVoice")
@@ -153,5 +167,10 @@ while(True):
     print("Ana: "+answer[0][1])
     speak.Speak(answer[0][1])
 
-    
-    
+#microphone.device_index = 4
+#import sounddevice as sd
+#print(sd.query_devices()) 
+
+#prediction = model(x_train)
+#print(prediction)
+#np.argmax(prediction, axis=1) 
