@@ -13,7 +13,6 @@ import numpy as np
 import string
 from spellchecker import SpellChecker
 from tensorflow.keras import optimizers
-from tensorflow.keras import regularizers
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Flatten, Dense, Embedding, Dropout
 from tensorflow.keras.utils import to_categorical
@@ -47,7 +46,7 @@ def spck(sentences):
 qdf.question = spck(qdf.question)
 
 max_len = 50        # tamanho máximo da frase
-max_words = 1000    # tamanho do dicionário
+max_words = 5000    # tamanho do dicionário
 
 #Tokenizar e codificar as perguntas
 tokenizer = Tokenizer(num_words=max_words)
@@ -60,7 +59,7 @@ y_train = to_categorical(qdf.answer_id)
 
 #Criar o modelo
 model = Sequential()
-model.add(Embedding(1000, 8, input_length= max_len))
+model.add(Embedding(5000, 32, input_length= max_len))
 model.add(Flatten())
 model.add(Dropout(0.5))
 model.add(Dense(100))
@@ -102,20 +101,16 @@ plt.ylabel("Accuracy")
 plt.legend()
 plt.show()
 
+
 ###################### Teste do modelo
 
 while True:
     sentence = input("você: ")
+    if sentence == 'quit':
+        break
     sentence = tokenizer.texts_to_sequences(spck([sentence]))
     sentence = pad_sequences(sentence, maxlen=max_len)
     prediction = model(sentence)
     category = np.argmax(prediction, axis=1)[0]
     answer = adf.query('answer_id=='+str(category)).to_numpy()
     print("Ana: "+answer[0][1])
-
-
-
-
-
-
-
