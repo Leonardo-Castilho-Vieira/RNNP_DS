@@ -117,10 +117,6 @@ while True:
     print("Ana: "+answer[0][1])
 
 
-
-
-
-
 #############################################################################################
 #
 # CAPTURA E RECONHECIMENTO DE VOZ E RESPOSTA
