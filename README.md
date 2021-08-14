@@ -1,6 +1,9 @@
 # RNNP_DS
 Redes Neurais na Prática - Turma Data Science
 
+Enviar documento em formato DOC ou PDF para jasmine.moreira@outlook.com
+/!\ Não esqueçam de se identificar no e-mail enviado.
+
 Evidências:
 
 1 - mnist pytorch vanilla
