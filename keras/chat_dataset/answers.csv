@@ -1,5 +1,5 @@
 answer_id;answer
-0;Ola, tudo bem com voce?
+0;OPA, bão?
 1;Que ótimo, como posso te ajudar?
 2;Eu tenho um cachorro.
 3;Ele é um vira lata
@@ -36,7 +36,7 @@ answer_id;answer
 34;Gosto, mas prefito volei
 35;Gosto de Volei
 36;Torço para quem ganha, e voce?
-37;Ótimo time
+37;Coxa-lider
 38;Devolve minha carteira
 39;Já foi um time bom
 40;ok, e de qual esporte gosta?
@@ -45,4 +45,5 @@ answer_id;answer
 43;Sim, eles existem
 44;Nunca vi, mas eles exitem
 45;Eu não gosto de filme de terror.
-46;Eu ouvi dizer que é a Invocação do Mal
+46;Sai Otaku
+47;Lá vem o cringe
